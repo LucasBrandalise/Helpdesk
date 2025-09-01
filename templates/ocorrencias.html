@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Ocorrências{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-12">
+        <a href="{{ url_for('novo_chamado') }}" class="btn btn-success mb-3">+ Novo Chamado</a>
+
+        <div class="card">
+            <div class="card-header">
+                Lista de Chamados Abertos
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col"># ID</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Criado em</th>
+                            <th scope="col">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for chamado in chamados %}
+                        <tr>
+                            <th scope="row">{{ chamado.id }}</th>
+                            <td>{{ chamado.titulo }}</td>
+                            <td>{{ chamado.status }}</td>
+                            <td>{{ chamado.data_criacao.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                <a href="{{ url_for('detalhes_chamado', chamado_id=chamado.id) }}" class="btn btn-sm btn-primary">Detalhes</a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhum chamado encontrado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
